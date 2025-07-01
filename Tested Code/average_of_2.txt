@@ -1,0 +1,32 @@
+// Testing function to return the average of 2 numbers
+
+fun AverageOfTwo_2(x:int, y:int) -> float {
+    return (x + y) / 2 as float;
+}
+
+__print AverageOfTwo_2(4,6);
+
+
+// Result is 5
+
+ParIR Code:
+
+
+.main
+push 6
+push 4
+push 2
+push .AverageOfTwo_2
+call
+print
+push 0
+ret
+halt
+.AverageOfTwo_2
+push 2
+push [1:0]
+push [0:0]
+add
+div
+ret
+

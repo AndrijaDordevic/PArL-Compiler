@@ -1,0 +1,43 @@
+// Testing type casting
+
+let c:colour = #00ff00;
+let n:int = 255;
+let as_colour:colour = n as colour;
+
+
+ __write 1, 5, c;
+
+ __write 1, 6, as_colour;
+
+
+
+
+ParIR Code:
+
+.main
+push 3
+oframe
+push 65280
+push 0
+push 0
+st
+push 255
+push 1
+push 0
+st
+push [1:0]
+push 2
+push 0
+st
+push [0:0]
+push 5
+push 1
+write
+push [2:0]
+push 6
+push 1
+write
+push 0
+ret
+halt
+

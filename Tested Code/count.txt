@@ -1,0 +1,117 @@
+// This function counts how many numbers in the array are less than the threshold value (10 in this case) and outputs value
+// This is to show that functions can handle both arrays and integers being passed to them
+
+fun CountBelow(arr:int[10], limit:int) -> int {
+    let cnt:int = 0;                 
+
+    for (let i:int = 0; i < 10; i = i + 1) {
+
+        __print arr[i];
+
+        if (arr[i] < limit) {
+            cnt = cnt + 1;
+        }
+    }
+
+    return cnt;
+}
+
+let data:int[10] = [4, 19, 7, 12, 3, 21, 8, 15, 2, 11];
+let threshold:int = 10;
+
+let below:int = CountBelow(data, threshold);
+
+__print threshold;
+__print below;
+
+
+// Result is 5
+
+
+ParIR Code:
+
+.main
+push 12
+oframe
+push 11
+push 2
+push 15
+push 8
+push 21
+push 3
+push 12
+push 7
+push 19
+push 4
+push 10
+push 0
+push 0
+sta
+push 10
+push 10
+push 0
+st
+push [10:0]
+push 10
+pusha [0:0]
+push 11
+push .CountBelow
+call
+push 11
+push 0
+st
+push [10:0]
+print
+push [11:0]
+print
+push 0
+ret
+halt
+.CountBelow
+push 1
+alloc
+push 0
+push 11
+push 0
+st
+push 1
+oframe
+push 0
+push 0
+push 0
+st
+push 10
+push [0:0]
+lt
+push #PC+4
+cjmp
+push #PC+27
+jmp
+push [0:0]
+push +[0:1]
+print
+push [10:1]
+push [0:0]
+push +[0:1]
+lt
+push #PC+4
+cjmp
+push #PC+8
+jmp
+push 1
+push [11:1]
+add
+push 11
+push 1
+st
+push 1
+push [0:0]
+add
+push 0
+push 0
+st
+push #PC-30
+jmp
+cframe
+push [11:0]
+ret

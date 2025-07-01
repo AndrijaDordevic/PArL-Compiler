@@ -1,0 +1,66 @@
+// Test for nested for loop to print values in increments of 10 twice
+
+for (let i: int = 1; i <= 3; i = i + 1) {
+    for (let j: int = 1; j <= 2; j = j + 1) {
+        __print (i * 10);
+    }
+}
+
+
+// Result is 10, 10, 20, 20, 30, 30
+
+
+ParIR Code:
+
+.main
+push 1
+oframe
+push 1
+push 0
+push 0
+st
+push 3
+push [0:0]
+le
+push #PC+4
+cjmp
+push #PC+36
+jmp
+push 1
+oframe
+push 1
+push 0
+push 0
+st
+push 2
+push [0:0]
+le
+push #PC+4
+cjmp
+push #PC+14
+jmp
+push 10
+push [0:1]
+mul
+print
+push 1
+push [0:0]
+add
+push 0
+push 0
+st
+push #PC-17
+jmp
+cframe
+push 1
+push [0:0]
+add
+push 0
+push 0
+st
+push #PC-39
+jmp
+cframe
+push 0
+ret
+halt

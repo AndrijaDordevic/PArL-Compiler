@@ -1,0 +1,143 @@
+// Testing race function 
+// Test includes: functions, colours, while loops, if-else
+
+fun Race(p1_c:colour, p2_c:colour, score_max:int) -> int {
+    let p1_score:int = 0;
+    let p2_score:int = 0;
+    while ((p1_score < score_max) and (p2_score < score_max)) {
+        let p1_toss:int = __random_int 1000;
+        let p2_toss:int = __random_int 1000;
+        if (p1_toss > p2_toss) {
+            p1_score = p1_score + 1;
+            __write 1, p1_score, p1_c;
+        } else {
+            p2_score = p2_score + 1;
+            __write 2, p2_score, p2_c;
+        }
+        __delay 100;
+    }
+    if (p2_score > p1_score) {
+        return 2;
+    }
+    return 1;
+}
+
+let c1:colour = #ff00ff;
+let c2:colour = #ff0000;
+let m:int = __height;
+let w:int = Race(c1, c2, m);
+__print w;
+
+
+
+ParIR Code:
+
+.main
+push 4
+oframe
+push 16711935
+push 0
+push 0
+st
+push 16711680
+push 1
+push 0
+st
+height
+push 2
+push 0
+st
+push [2:0]
+push [1:0]
+push [0:0]
+push 3
+push .Race
+call
+push 3
+push 0
+st
+push [3:0]
+print
+push 0
+ret
+halt
+.Race
+push 4
+alloc
+push 0
+push 3
+push 0
+st
+push 0
+push 4
+push 0
+st
+push [2:0]
+push [4:0]
+lt
+push [2:0]
+push [3:0]
+lt
+and
+push #PC+4
+cjmp
+push #PC+48
+jmp
+push 2
+oframe
+push 1000
+irnd
+push 0
+push 0
+st
+push 1000
+irnd
+push 1
+push 0
+st
+push [1:0]
+push [0:0]
+gt
+push #PC+4
+cjmp
+push #PC+14
+jmp
+push 1
+push [3:1]
+add
+push 3
+push 1
+st
+push [0:1]
+push [3:1]
+push 1
+write
+push #PC+12
+jmp
+push 1
+push [4:1]
+add
+push 4
+push 1
+st
+push [1:1]
+push [4:1]
+push 2
+write
+push 100
+delay
+cframe
+push #PC-55
+jmp
+push [3:0]
+push [4:0]
+gt
+push #PC+4
+cjmp
+push #PC+4
+jmp
+push 2
+ret
+push 1
+ret
+

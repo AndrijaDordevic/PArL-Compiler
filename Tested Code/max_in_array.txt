@@ -1,0 +1,91 @@
+// This function returns the maximum value in an array.
+
+fun MaxInArray(x:int[8]) -> int {
+    let m:int = 0;
+    for (let i:int = 0; i < 8; i = i+1) {
+        if (x[i] > m) { m = x[i]; }
+    }
+    return m;
+}
+
+let list_of_integers:int[] = [21, 54, 3, 65, 99, 23, 34, 120];
+let max:int = MaxInArray(list_of_integers);
+__print max;
+
+// Result is 120
+
+
+ParIR Code:
+
+.main
+push 9
+oframe
+push 120
+push 34
+push 23
+push 99
+push 65
+push 3
+push 54
+push 21
+push 8
+push 0
+push 0
+sta
+push 8
+pusha [0:0]
+push 8
+push .MaxInArray
+call
+push 8
+push 0
+st
+push [8:0]
+print
+push 0
+ret
+halt
+.MaxInArray
+push 1
+alloc
+push 0
+push 8
+push 0
+st
+push 1
+oframe
+push 0
+push 0
+push 0
+st
+push 8
+push [0:0]
+lt
+push #PC+4
+cjmp
+push #PC+23
+jmp
+push [8:1]
+push [0:0]
+push +[0:1]
+gt
+push #PC+4
+cjmp
+push #PC+7
+jmp
+push [0:0]
+push +[0:1]
+push 8
+push 1
+st
+push 1
+push [0:0]
+add
+push 0
+push 0
+st
+push #PC-26
+jmp
+cframe
+push [8:0]
+ret

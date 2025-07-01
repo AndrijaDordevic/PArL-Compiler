@@ -1,0 +1,83 @@
+// This function returns the sum of an entire array.
+
+fun SumArray(arr:int[6]) -> int {
+    let i:int = 0;
+    let total:int = 0;
+    while (i < 6) {
+        total = total + arr[i];
+        i = i + 1;
+    }
+    return total;
+}
+
+let nums:int[] = [1, 2, 3, 4, 5, 6];
+let sum_nums:int = SumArray(nums);
+__print sum_nums;
+
+
+// Result is 21
+
+ParIR Code:
+
+.main
+push 7
+oframe
+push 6
+push 5
+push 4
+push 3
+push 2
+push 1
+push 6
+push 0
+push 0
+sta
+push 6
+pusha [0:0]
+push 6
+push .SumArray
+call
+push 6
+push 0
+st
+push [6:0]
+print
+push 0
+ret
+halt
+.SumArray
+push 2
+alloc
+push 0
+push 6
+push 0
+st
+push 0
+push 7
+push 0
+st
+push 6
+push [6:0]
+lt
+push #PC+4
+cjmp
+push #PC+17
+jmp
+push [6:0]
+push +[0:0]
+push [7:0]
+add
+push 7
+push 0
+st
+push 1
+push [6:0]
+add
+push 6
+push 0
+st
+push #PC-20
+jmp
+push [7:0]
+ret
+

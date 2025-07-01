@@ -1,0 +1,98 @@
+// This function counts the even numbers in an array and returns back the amount it finds
+
+fun CountEvens(arr:int[5]) -> int {
+    let count:int = 0;
+    for (let i:int = 0; i < 5; i = i + 1) {
+        if (arr[i] % 2 == 0) {
+            count = count + 1;
+            
+        }
+    }
+    return count;
+}
+
+let nums:int[] = [5, 4, 3, 4, 11];
+
+let result:int = CountEvens(nums);
+
+__print result;  
+
+
+// Result is 2
+
+
+ParIR Code:
+
+.main
+push 6
+oframe
+push 11
+push 4
+push 3
+push 4
+push 5
+push 5
+push 0
+push 0
+sta
+push 5
+pusha [0:0]
+push 5
+push .CountEvens
+call
+push 5
+push 0
+st
+push [5:0]
+print
+push 0
+ret
+halt
+.CountEvens
+push 1
+alloc
+push 0
+push 5
+push 0
+st
+push 1
+oframe
+push 0
+push 0
+push 0
+st
+push 5
+push [0:0]
+lt
+push #PC+4
+cjmp
+push #PC+26
+jmp
+push 0
+push 2
+push [0:0]
+push +[0:1]
+mod
+eq
+push #PC+4
+cjmp
+push #PC+8
+jmp
+push 1
+push [5:1]
+add
+push 5
+push 1
+st
+push 1
+push [0:0]
+add
+push 0
+push 0
+st
+push #PC-29
+jmp
+cframe
+push [5:0]
+ret
+

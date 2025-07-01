@@ -1,0 +1,104 @@
+// This function draws random colours on the screen
+
+fun color() -> colour
+{
+    return  (16777215 - __random_int 16777215) as colour;
+}
+
+fun cc(x:int, y:int, iter:int) -> bool
+{
+    __print x;
+    __print y;
+    __print iter;
+
+    while (iter > 0) {
+        let c:colour = color();
+        let w:int = __random_int __width;
+        let h:int = __random_int __height;
+
+        __write w, h, c;
+
+        iter = iter - 1;
+    }
+
+    return true;
+}
+
+let a:bool = cc(0, 0, 100000);
+__delay 1000;
+
+
+ParIR Code:
+
+.main
+push 1
+oframe
+push 100000
+push 0
+push 0
+push 3
+push .cc
+call
+push 0
+push 0
+st
+push 1000
+delay
+push 0
+ret
+halt
+.color
+push 16777215
+irnd
+push 16777215
+sub
+ret
+.cc
+push 3
+alloc
+push [0:0]
+print
+push [1:0]
+print
+push [2:0]
+print
+push 0
+push [2:0]
+gt
+push #PC+4
+cjmp
+push #PC+33
+jmp
+push 3
+oframe
+push 0
+push .color
+call
+push 0
+push 0
+st
+width
+irnd
+push 1
+push 0
+st
+height
+irnd
+push 2
+push 0
+st
+push [0:0]
+push [2:0]
+push [1:0]
+write
+push 1
+push [2:1]
+sub
+push 2
+push 1
+st
+cframe
+push #PC-36
+jmp
+push 1
+ret
